@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gopxl/pixel"
 	"github.com/gopxl/pixel/pixelgl"
 	"golang.org/x/image/colornames"
@@ -45,7 +44,7 @@ func run() {
 			game.Current.Make()
 			game.Current.Draw()
 			win.Update()
-			time.Sleep(time.Millisecond * 300)
+			time.Sleep(time.Millisecond * 16)
 			continue
 		}
 		game.Current.Down(0)
@@ -78,19 +77,17 @@ func run() {
 			win.Clear(colornames.Skyblue)
 
 			game.Archive.Draw()
-			fmt.Println("begin\n", game.Current.Tetromino.String())
 			game.Current.Rotate()
 			game.Current.Draw()
-			fmt.Println("after\n", game.Current.Tetromino.String())
 		}
 
-		// Update game logic
-		// Check for collision, clear lines, etc.
-
-		// Draw tetromino
-		// Iterate over the tetromino's shape and draw colored blocks
+		ele := game.Archive.CanEliminates()
+		if len(ele) > 0 {
+			game.Archive.Eliminates(ele)
+			game.Current.Draw()
+		}
 
 		win.Update()
-		time.Sleep(time.Millisecond * 300)
+		time.Sleep(time.Millisecond * 50)
 	}
 }

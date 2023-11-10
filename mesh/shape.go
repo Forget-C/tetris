@@ -16,6 +16,8 @@ func NewBlock(win *pixelgl.Window, size int, color color.Color) *Block {
 	}
 }
 
+// Block
+// 网格中的方块
 type Block struct {
 	X     int // 网格坐标
 	Y     int
@@ -25,20 +27,28 @@ type Block struct {
 	*polygon.Block
 }
 
+// MoveX
+// 将方块移动到目标x轴位置
 func (b *Block) MoveX(n int) {
 	b.SetX(b.X + n)
 }
 
+// MoveY
+// 将方块移动到目标y轴位置
 func (b *Block) MoveY(n int) {
 	b.SetY(b.Y + n)
 }
 
+// SetX
+// 设置方块的x轴坐标
 func (b *Block) SetX(x int) {
 	b.X = x
 	b.Block.MinX = float64(x) * float64(b.size)
 	b.Block.MaxX = b.Block.MinX + float64(b.size)
 }
 
+// SetY
+// 设置方块的y轴坐标
 func (b *Block) SetY(y int) {
 	b.Y = y
 	b.Block.MinY = float64(y) * float64(b.size)
@@ -67,6 +77,8 @@ func NewTetromino(win *pixelgl.Window, shape *polygon.ShapeBlock, x, y int, bloc
 	return t
 }
 
+// Tetromino
+// 多个小方块组成图形
 type Tetromino struct {
 	shape     *polygon.ShapeBlock
 	Tetromino [3][3]*Block
@@ -76,6 +88,8 @@ type Tetromino struct {
 	x, y      int
 }
 
+// init
+// 初始化图形
 func (t *Tetromino) init() {
 	for i := 2; i >= 0; i-- {
 		for j := 0; j < 3; j++ {
@@ -158,15 +172,9 @@ func (t *Tetromino) String() string {
 	return res
 }
 
+// Rotate
+// 旋转图形
 func (t *Tetromino) Rotate() {
-	//tetromino := [3][3]*Block{}
-	//for i := 0; i < 3; i++ {
-	//	for j := 0; j < 3; j++ {
-	//		tetromino[i][j] = t.Tetromino[2-j][i]
-	//	}
-	//}
-	//
-	//t.Tetromino = tetromino
 	// 转置
 	for i := 0; i < len(t.shape.Shape); i++ {
 		for j := i + 1; j < len(t.shape.Shape[i]); j++ {

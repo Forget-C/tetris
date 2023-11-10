@@ -19,6 +19,7 @@ type ShapeBlock struct {
 	Name  string
 }
 
+// 图形定义
 var (
 	OBlock = ShapeBlock{
 		Shape: Shape{
@@ -55,6 +56,7 @@ var (
 	ShapeBlocks = []ShapeBlock{OBlock, TBlock, ZBlock, LBlock}
 )
 
+// 颜色定义
 var Colors = []color.Color{
 	colornames.Red,
 	colornames.Green,

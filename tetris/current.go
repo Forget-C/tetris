@@ -3,6 +3,7 @@ package tetris
 import (
 	"github.com/gopxl/pixel/pixelgl"
 	"log"
+	"sync"
 	"tetris/mesh"
 )
 
@@ -11,6 +12,7 @@ type Current struct {
 	win     *pixelgl.Window
 	archive *mesh.Mesh
 	speed   int // 网格坐标单位
+	sync.Mutex
 }
 
 func (c *Current) init() {
@@ -20,6 +22,8 @@ func (c *Current) init() {
 }
 
 func (c *Current) Down(dt int) {
+	c.Lock()
+	defer c.Unlock()
 	if dt != 0 {
 		c.Tetromino.MoveY(-c.speed * dt)
 	} else {
@@ -34,6 +38,8 @@ func (c *Current) Down(dt int) {
 }
 
 func (c *Current) Left() {
+	c.Lock()
+	defer c.Unlock()
 	if c.archive.IsLeftCollision(c.Tetromino) {
 		c.Tetromino.Draw()
 		return
@@ -43,6 +49,8 @@ func (c *Current) Left() {
 }
 
 func (c *Current) Right() {
+	c.Lock()
+	defer c.Unlock()
 	if c.archive.IsRightCollision(c.Tetromino) {
 		c.Tetromino.Draw()
 		return
@@ -52,6 +60,8 @@ func (c *Current) Right() {
 }
 
 func (c *Current) Rotate() {
+	c.Lock()
+	defer c.Unlock()
 	c.Tetromino.Rotate()
 	c.Tetromino.Draw()
 }

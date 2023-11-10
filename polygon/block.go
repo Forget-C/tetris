@@ -14,6 +14,8 @@ func NewBlock(win *pixelgl.Window, color color.Color) *Block {
 	}
 }
 
+// Block
+// 屏幕中的方块， 坐标单位为像素
 type Block struct {
 	MinX, MinY, MaxX, MaxY float64
 	color                  color.Color
